@@ -1,48 +1,68 @@
 const themes = {
   love: {
     front: "images/love-front.png",
-    cards: ["images/love1.png", "images/love2.png", "images/love3.png", "images/love4.png", "images/love5.png"]
+    cards: [
+      "images/love1.png",
+      "images/love2.png",
+      "images/love3.png",
+      "images/love4.png",
+      "images/love5.png"
+    ]
   },
   friendship: {
     front: "images/f-front.png",
-    cards: ["images/f1.png", "images/f2.png", "images/f3.png"]
+    cards: [
+      "images/f1.png",
+      "images/f2.png",
+      "images/f3.png"
+    ]
   },
   magic: {
     front: "images/magic-front.png",
-    cards: ["images/magic1.png", "images/magic2.png"]
+    cards: [
+      "images/magic1.png",
+      "images/magic2.png"
+    ]
   },
   growth: {
     front: "images/growth-front.png",
-    cards: ["images/g1.png", "images/g2.png", "images/g3.png"]
+    cards: [
+      "images/g1.png",
+      "images/g2.png",
+      "images/g3.png"
+    ]
   }
 };
 
-function loadCards(theme) {
+function loadCards(themeName) {
+  const theme = themes[themeName];
   const deckContainer = document.getElementById("deck-container");
-  deckContainer.innerHTML = ""; // Clear previous
+  deckContainer.innerHTML = ""; // Clear previous cards
 
-  const selectedTheme = themes[theme];
-  if (!selectedTheme) return;
-
-  selectedTheme.cards.forEach((cardImg, index) => {
+  theme.cards.forEach((backImg, index) => {
     const card = document.createElement("div");
-    card.classList.add("card");
+    card.className = "card";
+
+    const cardInner = document.createElement("div");
+    cardInner.className = "card-inner";
 
     const front = document.createElement("img");
-    front.src = selectedTheme.front;
-    front.classList.add("card-face", "front");
+    front.src = theme.front;
+    front.alt = "Front";
+    front.className = "card-front";
 
     const back = document.createElement("img");
-    back.src = cardImg;
-    back.classList.add("card-face", "back");
+    back.src = backImg;
+    back.alt = "Back";
+    back.className = "card-back";
 
-    card.appendChild(front);
-    card.appendChild(back);
+    cardInner.appendChild(front);
+    cardInner.appendChild(back);
+    card.appendChild(cardInner);
+    deckContainer.appendChild(card);
 
     card.addEventListener("click", () => {
-      card.classList.toggle("flipped");
+      cardInner.classList.toggle("flipped");
     });
-
-    deckContainer.appendChild(card);
   });
 }
