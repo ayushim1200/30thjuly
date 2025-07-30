@@ -1,4 +1,4 @@
-const tarotDeck = {
+const themes = {
   love: {
     front: "images/love-front.png",
     cards: ["images/love1.png", "images/love2.png", "images/love3.png", "images/love4.png", "images/love5.png"]
@@ -17,47 +17,32 @@ const tarotDeck = {
   }
 };
 
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
-}
+function loadCards(theme) {
+  const deckContainer = document.getElementById("deck-container");
+  deckContainer.innerHTML = ""; // Clear previous
 
-function createCard(frontSrc, backSrc) {
-  const card = document.createElement("div");
-  card.className = "card";
+  const selectedTheme = themes[theme];
+  if (!selectedTheme) return;
 
-  const cardInner = document.createElement("div");
-  cardInner.className = "card-inner";
+  selectedTheme.cards.forEach((cardImg, index) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
 
-  const cardFront = document.createElement("div");
-  cardFront.className = "card-front";
-  const frontImg = document.createElement("img");
-  frontImg.src = frontSrc;
-  cardFront.appendChild(frontImg);
+    const front = document.createElement("img");
+    front.src = selectedTheme.front;
+    front.classList.add("card-face", "front");
 
-  const cardBack = document.createElement("div");
-  cardBack.className = "card-back";
-  const backImg = document.createElement("img");
-  backImg.src = backSrc;
-  cardBack.appendChild(backImg);
+    const back = document.createElement("img");
+    back.src = cardImg;
+    back.classList.add("card-face", "back");
 
-  cardInner.appendChild(cardFront);
-  cardInner.appendChild(cardBack);
-  card.appendChild(cardInner);
+    card.appendChild(front);
+    card.appendChild(back);
 
-  card.addEventListener("click", () => {
-    card.classList.toggle("flipped");
+    card.addEventListener("click", () => {
+      card.classList.toggle("flipped");
+    });
+
+    deckContainer.appendChild(card);
   });
-
-  return card;
 }
-
-window.onload = () => {
-  const container = document.getElementById("deck-container");
-  Object.keys(tarotDeck).forEach(theme => {
-    const { front, cards } = tarotDeck[theme];
-    const shuffled = shuffle([...cards]);
-    const selected = shuffled.slice(0, 1)[0];
-    const cardEl = createCard(front, selected);
-    container.appendChild(cardEl);
-  });
-};
