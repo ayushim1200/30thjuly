@@ -1,0 +1,85 @@
+body {
+  font-family: 'Comic Sans MS', cursive;
+  background: linear-gradient(to right, #ffe0ec, #fce4ec);
+  text-align: center;
+  padding: 40px;
+}
+
+.heading {
+  font-size: 2.5rem;
+  color: #d63384;
+  margin-bottom: 30px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.deck-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.card {
+  width: 160px;
+  height: 240px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 1.2s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: transform 0.5s ease-in-out;
+}
+
+.card-front {
+  background-color: #fff0f6;
+}
+
+.card-back {
+  background-color: #ffffff;
+  transform: rotateY(180deg);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.back-button {
+  text-decoration: none;
+  background-color: #f48fb1;
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #ec407a;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
